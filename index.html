@@ -24,6 +24,16 @@
       margin-bottom: 15px;
     }
 
+    /* Tambahan Style untuk Nama Host */
+    .host-name {
+        font-size: 18px; /* Ukuran font sedang */
+        color: #e0d4ff; /* Warna terang agar terlihat di background gelap */
+        margin-top: -5px; /* Sedikit naik agar dekat dengan logo */
+        margin-bottom: 15px;
+        text-align: center;
+        font-weight: 600;
+    }
+
     /* Payment Card */
     .payment {
       background: rgba(255,255,255,0.05);
@@ -69,7 +79,7 @@
         z-index: 10;
     }
     
-    /* Logo Foto di tengah atas (BULE DENGAN URL GAMBAR) */
+    /* Logo Foto di tengah atas (BULET DENGAN URL GAMBAR) */
     .logo-header {
         position: relative;
         display: block;
@@ -77,13 +87,17 @@
         height: 60px;
         margin: -10px auto 10px auto; 
         border-radius: 50%;
-        /* GANTI URL DI BAWAH DENGAN URL GAMBAR ANDA */
         background-image: url('https://files.catbox.moe/ns8bej.jpg'); 
-        background-size: cover; /* Memastikan gambar menutupi area bulet */
-        background-position: center; /* Menengahkan gambar */
-        background-color: #9b59ff; /* Warna latar belakang jika gambar gagal/lambat dimuat */
+        background-size: cover; 
+        background-position: center; 
+        background-color: #9b59ff; 
+        
+        /* GARIS PUTIH DENGAN EFEK NYALA (GLOW EFFECT) */
         border: 3px solid white;
-        box-shadow: 0 0 15px rgba(155, 89, 255, 0.9);
+        box-shadow: 
+          0 0 5px white, /* Nyala kecil (inner glow) */
+          0 0 15px #9b59ff, /* Nyala utama ungu */
+          0 0 25px rgba(155, 89, 255, 0.9); /* Nyala besar (outer glow) */
         z-index: 20;
     }
 
@@ -159,7 +173,7 @@
       text-align: center;
     }
 
-    /* Style untuk input nama */
+    /* Style untuk input nama dan nominal */
     .input-nama {
         width: 80%;
         max-width: 300px;
@@ -187,6 +201,8 @@
 <div class="payment">
   <div class="logo-header"></div>
   
+  <p class="host-name">YORIE HOST</p>
+  
   <h2 style="margin-top: -10px;">Metode Pembayaran</h2>
 
   <h3 style="margin-top:0;">Upload Bukti Pembayaran (Otomatis ke WhatsApp)</h3>
@@ -199,6 +215,8 @@
     <input type="hidden" name="_next" id="next-link" value="#">
     
     <input type="text" name="Nama_Pengirim" id="userInputName" class="input-nama" placeholder="Masukkan Nama Anda (Wajib)" required>
+
+    <input type="number" name="Nominal_Transfer" id="transferAmount" class="input-nama" placeholder="Masukkan Nominal Transfer (Wajib)" required>
 
     <input type="file" name="attachment" id="fileInput" accept="image/*,.pdf" required><br><br>
     <button type="submit" class="download-btn">📤 Upload & Kirim ke CS</button>
@@ -240,15 +258,18 @@
   function handleUpload() {
     const fileInput = document.getElementById('fileInput');
     const nameInput = document.getElementById('userInputName');
+    const amountInput = document.getElementById('transferAmount'); 
+    
     const userName = nameInput.value.trim() || 'Pelanggan Anonim'; 
+    const transferAmount = amountInput.value.trim() || 'Tidak Disebutkan'; 
     const fileName = fileInput.files[0]?.name || 'Bukti Pembayaran';
 
     // 1. Kirim ke WhatsApp
-    const whatsappLink = `https://wa.me/6285215996783?text=Halo%20kak%2C%20saya%20sudah%20melakukan%20pembayaran%20atas%20nama%3A%20*${encodeURIComponent(userName)}*.%0ABukti%3A%20*${fileName}*%0ATolong%20cek%20ya%20Kak~`;
+    const whatsappLink = `https://wa.me/6285215996783?text=Halo%20kak%2C%20saya%20sudah%20melakukan%20pembayaran%20atas%20nama%3A%20*${encodeURIComponent(userName)}*%0ANominal%20Transfer%3A%20*Rp%20${encodeURIComponent(transferAmount)}*%0ABukti%3A%20*${fileName}*%0ATolong%20cek%20ya%20Kak~`;
     document.getElementById('next-link').value = whatsappLink;
 
     // 2. Kirim ke Email Subject
-    document.getElementById('email-subject').value = \`Bukti Pembayaran dari: \${userName}\`;
+    document.getElementById('email-subject').value = \`Bukti Pembayaran Rp \${transferAmount} dari: \${userName}\`;
     
     return true;
   }
