@@ -69,23 +69,22 @@
         z-index: 10;
     }
     
-    /* Logo Foto di tengah atas (di bawah h2) */
+    /* Logo Foto di tengah atas (BULE DENGAN URL GAMBAR) */
     .logo-header {
         position: relative;
         display: block;
         width: 60px;
         height: 60px;
-        margin: -10px auto 10px auto; /* Menaikkan posisi logo ke tengah atas card */
+        margin: -10px auto 10px auto; 
         border-radius: 50%;
-        background: #9b59ff; /* Warna latar belakang logo */
+        /* GANTI URL DI BAWAH DENGAN URL GAMBAR ANDA */
+        background-image: url('https://files.catbox.moe/ns8bej.jpg'); 
+        background-size: cover; /* Memastikan gambar menutupi area bulet */
+        background-position: center; /* Menengahkan gambar */
+        background-color: #9b59ff; /* Warna latar belakang jika gambar gagal/lambat dimuat */
         border: 3px solid white;
         box-shadow: 0 0 15px rgba(155, 89, 255, 0.9);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 30px;
-        color: white;
-        z-index: 20; /* Pastikan di atas elemen lain */
+        z-index: 20;
     }
 
     .qris {
@@ -186,7 +185,7 @@
 <body>
 
 <div class="payment">
-  <div class="logo-header"><i class="fas fa-camera"></i></div>
+  <div class="logo-header"></div>
   
   <h2 style="margin-top: -10px;">Metode Pembayaran</h2>
 
@@ -222,7 +221,7 @@
 
   <div class="qris-container">
       <i class="fas fa-qrcode qris-icon"></i>
-      <img src="https://i.imgur.com/your-image-url.png" onerror="this.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0EQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='" alt="QRIS Yorie" class="qris" />
+      <img src="https://files.catbox.moe/ns8bej.jpg" onerror="this.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0EQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='" alt="QRIS Yorie" class="qris" />
   </div>
   <br>
   <a class="download-btn" href="https://files.catbox.moe/g8hie4.png" download>⬇ Download QRIS</a>
@@ -249,7 +248,7 @@
     document.getElementById('next-link').value = whatsappLink;
 
     // 2. Kirim ke Email Subject
-    document.getElementById('email-subject').value = `Bukti Pembayaran dari: ${userName}`;
+    document.getElementById('email-subject').value = \`Bukti Pembayaran dari: \${userName}\`;
     
     return true;
   }
@@ -257,4 +256,3 @@
 
 </body>
   </html>
-  
